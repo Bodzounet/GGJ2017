@@ -26,12 +26,12 @@ public class PlaceTowerOnMap : MonoBehaviour
 
 	void Update ()
     {
-	    if (Input.GetKeyDown(KeyCode.Z))
+	    if (Input.GetKeyDown(KeyCode.S))
         {
             if (_currentCoord.y > 0)
                 _currentCoord.y--;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             if (_currentCoord.y < YSize)
                 _currentCoord.y++;
