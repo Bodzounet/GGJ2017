@@ -4,7 +4,8 @@ using XInputDotNetPure; // Required in C#
 public class XInputTestCS : MonoBehaviour
 {
     bool playerIndexSet = false;
-    PlayerIndex playerIndex;
+
+    PlayerIndex[] playerIndex;
     GamePadState state;
     GamePadState prevState;
 
@@ -12,6 +13,7 @@ public class XInputTestCS : MonoBehaviour
     void Start()
     {
         // No need to initialize anything for the plugin
+        playerIndex = new PlayerIndex[2];
     }
 
     // Update is called once per frame
@@ -28,14 +30,14 @@ public class XInputTestCS : MonoBehaviour
                 if (testState.IsConnected)
                 {
                     Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
-                    playerIndex = testPlayerIndex;
+                    playerIndex[i] = testPlayerIndex;
                     playerIndexSet = true;
                 }
             }
         }
 
         prevState = state;
-        state = GamePad.GetState(playerIndex);
+        state = GamePad.GetState(playerIndex[0]);
 
         // Detect if a button was pressed this frame
         if (prevState.Buttons.A == ButtonState.Released && state.Buttons.A == ButtonState.Pressed)
@@ -49,7 +51,7 @@ public class XInputTestCS : MonoBehaviour
         }
 
         // Set vibration according to triggers
-        GamePad.SetVibration(playerIndex, state.Triggers.Left, state.Triggers.Right);
+        GamePad.SetVibration(playerIndex[0], state.Triggers.Left, state.Triggers.Right);
 
         // Make the current object turn
         transform.localRotation *= Quaternion.Euler(0.0f, state.ThumbSticks.Left.X * 25.0f * Time.deltaTime, 0.0f);
