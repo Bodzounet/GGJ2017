@@ -1,4 +1,7 @@
-Temp/UnityLockfile
-Library/AssetVersioning.db
-Library/shadercompiler-UnityShaderCompiler.exe0.log
-Library/AssetServerCacheV3
+
+Globale Game Jam 2.CSharp.csproj
+Globale Game Jam 2.sln
+
+Library/*
+Temp/*
+.vs/Globale Game Jam 2/v14/.suo
