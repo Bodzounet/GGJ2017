@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JoystickManager : MonoBehaviour {
+public class InfoTower : MonoBehaviour {
+
+
+    public string towerName;
 
 	// Use this for initialization
 	void Start () {
