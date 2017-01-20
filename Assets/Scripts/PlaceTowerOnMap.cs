@@ -126,9 +126,9 @@ public class PlaceTowerOnMap : MonoBehaviour
     private void _ComputeOverlappingTower()
     {
         if (_overlappingTower != null)
-            _overlappingTower.GetComponent<Renderer>().enabled = true;
+            _overlappingTower.GetComponentInChildren<Renderer>().enabled = true;
         _UpdateOverlappingTower();
         if (_overlappingTower != null)
-            _overlappingTower.GetComponent<Renderer>().enabled = false;
+            _overlappingTower.GetComponentInChildren<Renderer>().enabled = false;
     }
 }
