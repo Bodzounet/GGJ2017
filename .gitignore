@@ -2,7 +2,6 @@
 Globale Game Jam 2.CSharp.csproj
 Globale Game Jam 2.sln
 
-Library/AssetVersioning.db
-Library/ShaderCache.db
-Library/shadercompiler-UnityShaderCompiler.exe0.log
-Temp/UnityLockfile
+Library/*
+Temp/*
+.vs/Globale Game Jam 2/v14/.suo
