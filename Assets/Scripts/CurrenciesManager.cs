@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Collections;
 
 public class CurrenciesManager : MonoBehaviour
 {
     public enum e_Currencies
     {
         Gold,
-        Life
+        Life,
+        Income
     }
 
     public GameObject goUITextGold;
@@ -16,27 +18,41 @@ public class CurrenciesManager : MonoBehaviour
     public GameObject goUITextLife;
     private Text _lifeText;
 
+    public GameObject goUITextIncome;
+    private Text _incomeText;
+
     [HideInInspector]
     public Dictionary<e_Currencies, CurrencyHelper> currencies;
 
     public int initialGold;
+    public int initialIncome;
     public int life;
+    public float incomeTime;
 
     void Awake()
     {
         currencies = new Dictionary<e_Currencies, CurrencyHelper>();
         currencies[e_Currencies.Gold] = new CurrencyHelper();
         currencies[e_Currencies.Life] = new CurrencyHelper();
+        currencies[e_Currencies.Income] = new CurrencyHelper();
     }
 
     void Start()
     {
         _goldText = goUITextGold.GetComponent<Text>();
         _lifeText = goUITextLife.GetComponent<Text>();
+        _incomeText = goUITextIncome.GetComponent<Text>();
+
         currencies[CurrenciesManager.e_Currencies.Gold].OnCurrencyAmountModification += UpdateUIGold;
         currencies[CurrenciesManager.e_Currencies.Life].OnCurrencyAmountModification += UpdateUILife;
+        currencies[CurrenciesManager.e_Currencies.Income].OnCurrencyAmountModification += UpdateUIIncome;
+
         currencies[e_Currencies.Gold].AddCurrency(initialGold);
         currencies[e_Currencies.Life].AddCurrency(life);
+        currencies[e_Currencies.Income].AddCurrency(initialIncome);
+
+        StartCoroutine("AddIncomeToGold", incomeTime);
+
     }
 
     void Update()
@@ -50,6 +66,10 @@ public class CurrenciesManager : MonoBehaviour
             currencies[e_Currencies.Life].UseCurrency(1);
             GameObject.Find("JoystickController").GetComponent<JoystickManager>().LaunchVib(0.2f);
         }
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            currencies[e_Currencies.Income].AddCurrency(1);
+
+
     }
 
     void UpdateUIGold(int before, int after)
@@ -62,6 +82,22 @@ public class CurrenciesManager : MonoBehaviour
         _lifeText.text = after.ToString();
     }
 
+    void UpdateUIIncome(int before, int after)
+    {
+        _incomeText.text = after.ToString();
+    }
+
+    private bool _incomeCheck = true;
+
+    IEnumerator AddIncomeToGold(float time)
+    {
+        while (_incomeCheck)
+        {
+            currencies[e_Currencies.Gold].AddCurrency(currencies[e_Currencies.Income].Amount);
+            Debug.Log("income TIME !!");
+            yield return new WaitForSeconds(time);
+        }
+    }
     public class CurrencyHelper
     {
         public delegate void CurrencyAmountModification(int before, int after);

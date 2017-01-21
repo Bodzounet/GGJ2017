@@ -56,6 +56,6 @@ public class SwitchItemData : MonoBehaviour
 
     public string GetCurrentNameTower()
     {
-        return (_holders[1].GetComponent<InfoTower>().towerName);
+        return (_holders[1].GetComponent<InfoTowerUI>().towerName);
     }
 }
