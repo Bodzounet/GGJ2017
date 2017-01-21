@@ -7,11 +7,15 @@ public class ShockWaveTower : TowerEntity
 {
     List<MobEntity> _targetsInRange = new List<MobEntity>();
     Animator _anim;
+    public ParticleSystem ps;
     bool _isAttacking = false;
+
+    public float slowDebuffTime = 2;
+    public float slowDebuffPercentage = 0.33f;
 
     void Awake()
     {
-        _anim = GetComponent<Animator>();
+        _anim = transform.root.GetComponent<Animator>();
     }
 
     void OnTriggerEnter(Collider col)
@@ -24,6 +28,7 @@ public class ShockWaveTower : TowerEntity
                 InvokeRepeating("Ivk_Attack", 0, 1 / AttackSpeed);
                 _isAttacking = true;
                 _anim.SetBool("IsAttacking", true);
+                ps.Play();
             }
         }
     }
@@ -36,7 +41,9 @@ public class ShockWaveTower : TowerEntity
             if (_targetsInRange.Count == 0)
             {
                 _anim.SetBool("IsAttacking", false);
+                ps.Stop();
                 CancelInvoke("Ivk_Attack");
+                _isAttacking = false;
             }
         }
     }
@@ -46,6 +53,7 @@ public class ShockWaveTower : TowerEntity
         foreach (var v in _targetsInRange)
         {
             v.Life -= Dommages;
+            v.SetSlowDebuff(slowDebuffTime, slowDebuffPercentage);
         }
     }
 }

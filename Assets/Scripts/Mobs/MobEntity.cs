@@ -33,10 +33,21 @@ public class MobEntity : MonoBehaviour {
     }
 
     [SerializeField]
+    private float _baseSpeed;
+    public float BaseSpeed
+    {
+        get { return _baseSpeed; }
+    }
+
     private float _speed;
     public float Speed
     {
         get { return _speed; }
+        set
+        {
+            _speed = value;
+            GetComponent<NavMeshAgent>().speed = _speed;
+        }
     }
 
     [SerializeField]
@@ -48,4 +59,27 @@ public class MobEntity : MonoBehaviour {
 
     public e_MobId id;
     public GameInfos.e_Team team;
+
+    private bool _isSlow = false;
+    public void SetSlowDebuff(float time, float percentage)
+    {
+        if (!_isSlow)
+        {
+            _isSlow = true;
+            Speed = Speed * percentage;
+            Invoke("Ivk_SlowDebuff", time);
+        }
+        else
+        {
+            CancelInvoke("Ivk_SlowDebuff");
+            Invoke("Ivk_SlowDebuff", time);
+        }
+
+    }
+
+    void Ivk_SlowDebuff()
+    {
+        Speed = BaseSpeed;
+        _isSlow = false;
+    }
 }

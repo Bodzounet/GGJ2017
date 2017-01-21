@@ -7,13 +7,12 @@ public class PlaceTowerOnMap : MonoBehaviour
     public Dict_TowerIdToPrefab[] previsualisations;
     public Dict_TowerIdToPrefab[] towers;
 
-    public int XSize = 10;
-    public int YSize = 20;
+    public int XSize;
+    public int YSize;
 
     public Transform[] margins; // topLeft, rightLeft, bottomLeft, bottomRight;
 
     private Vector2 _currentCoord = new Vector2(0, 0);
-    private Vector2 _correction;
     private GameObject _previsualisation;
     private Renderer[] _rd;
 
@@ -34,11 +33,14 @@ public class PlaceTowerOnMap : MonoBehaviour
 
     void Start()
     {
+        var v = FindObjectOfType<MapData>();
+        XSize = v.XSize;
+        YSize = v.YSize;
+
         // to make it work, _xsize has to be equal to _ySize
         _xSize = (margins[1].position.x - margins[0].position.x) / XSize;
         _ySize = (margins[0].position.z - margins[2].position.z) / YSize;
 
-        _correction = new Vector2(-_xSize * XSize / 2, -_ySize * YSize / 2);
         sid.OnSwitchItem += UpdatePrevisualisation;
         SetTowerModel(TowerEntity.e_TowerId.XRAY);
     }
@@ -89,7 +91,7 @@ public class PlaceTowerOnMap : MonoBehaviour
     {
         //_currentCoord = Vector2.zero;
         _previsualisation = Instantiate(previsualisations.Single(x => x.id == currentTower).prefab) as GameObject;
-        _previsualisation.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x, 0, _currentCoord.y * _ySize + _correction.y);
+        _previsualisation.transform.position = new Vector3(_currentCoord.x * _xSize + margins[2].position.x, 0, _currentCoord.y * _ySize + margins[2].position.z);
         _previsualisation.transform.localScale = (new Vector3(_xSize, _xSize, _xSize) / 1.5f);
         _rd = _previsualisation.GetComponentsInChildren<Renderer>();
         _UpdateOverlappingTower();
@@ -163,7 +165,7 @@ public class PlaceTowerOnMap : MonoBehaviour
         }
         
 
-        _previsualisation.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x, 0, _currentCoord.y * _ySize + _correction.y);
+        _previsualisation.transform.position = new Vector3(_currentCoord.x * _xSize + margins[2].position.x, 0, _currentCoord.y * _ySize + margins[2].position.z);
 
         if (hasMove)
         {
