@@ -37,7 +37,7 @@ public class PlaceTowerOnMap : MonoBehaviour
         _ySize = (margins[0].position.z - margins[2].position.z) / YSize;
 
         _correction = new Vector2(-_xSize * XSize / 2, -_ySize * YSize / 2);
-        sid.OnSwitchItem += UpdatePrevisualisation;
+    //    sid.OnSwitchItem += UpdatePrevisualisation;
        // SetTowerModel(TowerEntity.e_TowerId.XRAY);
     }
 
