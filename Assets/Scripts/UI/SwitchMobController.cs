@@ -13,9 +13,21 @@ public class SwitchMobController : MonoBehaviour
 
     void Start()
     {
+       
+        
+
+    }
+
+    void DelockUISlideMinion()
+    {
+        _lockSlideMinion = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (jm._playerIndexSet[playerID] == true)
         {
-            Debug.Log("playerID = " + playerID + " " + jm.state[playerID].Triggers.Left);
             if (jm.state[playerID].Triggers.Left > 0 && _lockSlideMinion == false)
             {
                 Invoke("DelockUISlideMinion", 0.5f);
@@ -29,18 +41,5 @@ public class SwitchMobController : MonoBehaviour
                 _lockSlideMinion = true;
             }
         }
-        
-
-    }
-
-    void DelockUISlideMinion()
-    {
-        _lockSlideMinion = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

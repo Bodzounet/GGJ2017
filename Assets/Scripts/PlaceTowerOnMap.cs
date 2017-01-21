@@ -30,6 +30,8 @@ public class PlaceTowerOnMap : MonoBehaviour
 
     public GoldCost gc;
 
+    public int playerID;
+
     void Start()
     {
         // to make it work, _xsize has to be equal to _ySize
@@ -63,7 +65,7 @@ public class PlaceTowerOnMap : MonoBehaviour
             _timeSmoothSlide = _startTimeSmoothSlide;
 
         }
-        if (jm.state[0].Buttons.A == XInputDotNetPure.ButtonState.Released)
+        if (jm.state[playerID].Buttons.A == XInputDotNetPure.ButtonState.Released)
         {
             _IsButtonAPressed = false;
         }
@@ -117,7 +119,7 @@ public class PlaceTowerOnMap : MonoBehaviour
     private void _UpdatePrevisualisationPosition()
     {
         bool hasMove = false;
-        if (jm.state[0].ThumbSticks.Left.Y < 0 && _smoothSlide == false)
+        if (jm.state[playerID].ThumbSticks.Left.Y < 0 && _smoothSlide == false)
         {
             hasMove = true;
             if (_currentCoord.y > 0)
@@ -126,7 +128,7 @@ public class PlaceTowerOnMap : MonoBehaviour
             _timeSmoothSlide = _timeSmoothSlide / _opSmoothSlide;
             _smoothSlide = true;
         }
-        if (jm.state[0].ThumbSticks.Left.Y > 0 && _smoothSlide == false)
+        if (jm.state[playerID].ThumbSticks.Left.Y > 0 && _smoothSlide == false)
         {
             hasMove = true;
             if (_currentCoord.y < YSize)
@@ -135,7 +137,7 @@ public class PlaceTowerOnMap : MonoBehaviour
             _timeSmoothSlide = _timeSmoothSlide / _opSmoothSlide;
             _smoothSlide = true;
         }
-        if (jm.state[0].ThumbSticks.Left.X < 0 && _smoothSlide == false)
+        if (jm.state[playerID].ThumbSticks.Left.X < 0 && _smoothSlide == false)
         {
             hasMove = true;
             if (_currentCoord.x > 0)
@@ -145,7 +147,7 @@ public class PlaceTowerOnMap : MonoBehaviour
             _smoothSlide = true;
         }
 
-        if (jm.state[0].ThumbSticks.Left.X > 0 && _smoothSlide == false)
+        if (jm.state[playerID].ThumbSticks.Left.X > 0 && _smoothSlide == false)
         {
             hasMove = true;
             if (_currentCoord.x < XSize)
@@ -155,7 +157,7 @@ public class PlaceTowerOnMap : MonoBehaviour
             _smoothSlide = true;
         }
 
-        if (jm.state[0].ThumbSticks.Left.Y == 0 && jm.state[0].ThumbSticks.Left.X == 0)
+        if (jm.state[playerID].ThumbSticks.Left.Y == 0 && jm.state[playerID].ThumbSticks.Left.X == 0)
         {
             _timeSmoothSlide = _startTimeSmoothSlide;
         }

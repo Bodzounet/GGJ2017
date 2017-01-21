@@ -20,17 +20,20 @@ public class SwitchTowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (jm.state[playerID].Buttons.LeftShoulder == ButtonState.Pressed && _lockSlideTower == false)
+        if (jm._playerIndexSet[playerID] == true)
         {
-            Invoke("DelockUISlideTower", 0.5f);
-            _switchTowerHolder1.SwitchPositionFromRightToLeft();
-            _lockSlideTower = true;
-        }
-        if (jm.state[playerID].Buttons.RightShoulder == ButtonState.Pressed && _lockSlideTower == false)
-        {
-            Invoke("DelockUISlideTower", 0.5f);
-            _switchTowerHolder1.SwitchPositionFromLeftToRight();
-            _lockSlideTower = true;
+            if (jm.state[playerID].Buttons.LeftShoulder == ButtonState.Pressed && _lockSlideTower == false)
+            {
+                Invoke("DelockUISlideTower", 0.5f);
+                _switchTowerHolder1.SwitchPositionFromRightToLeft();
+                _lockSlideTower = true;
+            }
+            if (jm.state[playerID].Buttons.RightShoulder == ButtonState.Pressed && _lockSlideTower == false)
+            {
+                Invoke("DelockUISlideTower", 0.5f);
+                _switchTowerHolder1.SwitchPositionFromLeftToRight();
+                _lockSlideTower = true;
+            }
         }
 
     }

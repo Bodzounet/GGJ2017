@@ -22,8 +22,9 @@ public class PlaceArrowOnMap : MonoBehaviour
     public SwitchItemData sid;
     public CurrenciesManager cm;
     public GoldCost gc;
+    public int playerdID;
 
-    void Start ()
+    void Start()
     {
         _XSize = FindObjectOfType<MapData>().XSize;
 
@@ -31,7 +32,9 @@ public class PlaceArrowOnMap : MonoBehaviour
         _correction = new Vector2(-_xSize * _XSize / 2, 0);
 
         _arrow = GameObject.Instantiate(arrowModel);
-        _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x, 0, margins[0].position.z);
+        Debug.Log("wcwedwed0");
+        _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x + margins[0].position.x, 0, margins[0].position.z);
+        Debug.Log(_arrow.transform.position);
         _arrow.transform.localScale = new Vector3(_xSize, _xSize, _xSize);
     }
 
@@ -43,7 +46,7 @@ public class PlaceArrowOnMap : MonoBehaviour
 
     void Update()
     {
-        if (jm.state[0].ThumbSticks.Right.X < 0 && _smoothSlide == false)
+        if (jm.state[playerdID].ThumbSticks.Right.X < 0 && _smoothSlide == false)
         {
             if (_currentCoord.x > 0)
                 _currentCoord.x--;
@@ -52,7 +55,7 @@ public class PlaceArrowOnMap : MonoBehaviour
             _smoothSlide = true;
         }
 
-        if (jm.state[0].ThumbSticks.Right.X > 0 && _smoothSlide == false)
+        if (jm.state[playerdID].ThumbSticks.Right.X > 0 && _smoothSlide == false)
         {
             if (_currentCoord.x < _XSize)
                 _currentCoord.x++;
@@ -60,20 +63,21 @@ public class PlaceArrowOnMap : MonoBehaviour
             _timeSmoothSlide = _timeSmoothSlide / _opSmoothSlide;
             _smoothSlide = true;
         }
-        _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x, 0, margins[0].position.z);
+        Debug.Log(playerdID);
+        _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x +  margins[0].position.x, 0, margins[0].position.z);
 
-        if (jm.state[0].Buttons.B == XInputDotNetPure.ButtonState.Pressed && !isButtonBPressed)
+        if (jm.state[playerdID].Buttons.B == XInputDotNetPure.ButtonState.Pressed && !isButtonBPressed)
         {
             isButtonBPressed = true;
             // valeurs en dur pour tester, à modifier
-            mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + _correction.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
+            mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + _correction.x + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
             // valeurs en dur pour tester, à modifier
         }
-        if (jm.state[0].Buttons.B == XInputDotNetPure.ButtonState.Released)
+        if (jm.state[playerdID].Buttons.B == XInputDotNetPure.ButtonState.Released)
         {
             isButtonBPressed = false;
         }
-        if (jm.state[0].ThumbSticks.Right.Y == 0 && jm.state[0].ThumbSticks.Right.X == 0)
+        if (jm.state[playerdID].ThumbSticks.Right.Y == 0 && jm.state[playerdID].ThumbSticks.Right.X == 0)
         {
             _timeSmoothSlide = _startTimeSmoothSlide;
         }
