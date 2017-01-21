@@ -15,8 +15,6 @@ public class PlaceArrowOnMap : MonoBehaviour
     private float _xSize;
 
     private Vector2 _currentCoord = new Vector2(0, 0);
-    private Vector2 _correction;
-
 
     public JoystickManager jm;
     public SwitchItemData sid;
@@ -28,13 +26,10 @@ public class PlaceArrowOnMap : MonoBehaviour
     {
         _XSize = FindObjectOfType<MapData>().XSize;
 
-        _xSize = (margins[1].position.x - margins[0].position.x) / _XSize;
-        _correction = new Vector2(-_xSize * _XSize / 2, 0);
+        _xSize = (margins[1].position.x - margins[0].position.x) / _XSize;;
 
         _arrow = GameObject.Instantiate(arrowModel);
-        Debug.Log("wcwedwed0");
-        _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x + margins[0].position.x, 0, margins[0].position.z);
-        Debug.Log(_arrow.transform.position);
+        _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z);
         _arrow.transform.localScale = new Vector3(_xSize, _xSize, _xSize);
     }
 
@@ -64,13 +59,13 @@ public class PlaceArrowOnMap : MonoBehaviour
             _smoothSlide = true;
         }
         Debug.Log(playerdID);
-        _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x +  margins[0].position.x, 0, margins[0].position.z);
+        _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z);
 
         if (jm.state[playerdID].Buttons.B == XInputDotNetPure.ButtonState.Pressed && !isButtonBPressed)
         {
             isButtonBPressed = true;
             // valeurs en dur pour tester, à modifier
-            mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + _correction.x + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
+            mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
             // valeurs en dur pour tester, à modifier
         }
         if (jm.state[playerdID].Buttons.B == XInputDotNetPure.ButtonState.Released)
