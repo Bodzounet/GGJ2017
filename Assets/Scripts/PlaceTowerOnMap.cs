@@ -32,7 +32,7 @@ public class PlaceTowerOnMap : MonoBehaviour
 
         _correction = new Vector2(-_xSize * XSize / 2, -_ySize * YSize / 2);
 
-        SetTowerModel(TowerEntity.e_TowerId.XRAY);
+        SetTowerModel(TowerEntity.e_TowerId.SONIC);
     }
 
 	void Update ()
