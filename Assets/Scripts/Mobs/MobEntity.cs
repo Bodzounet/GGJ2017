@@ -20,6 +20,16 @@ public class MobEntity : MonoBehaviour {
     public float Life
     {
         get { return _life; }
+        set
+        {
+            _life = value;
+            if (_life == 0)
+            {
+                this.GetComponent<OnMobDies>().OnDeath();
+                Destroy(GetComponent<RegularAI>());
+                Destroy(GetComponent<NavMeshAgent>());
+            }
+        }
     }
 
     [SerializeField]

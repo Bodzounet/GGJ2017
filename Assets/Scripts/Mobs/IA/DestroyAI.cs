@@ -5,6 +5,9 @@ public class DestroyAI : MonoBehaviour
 {
     void OnTriggerEnter(Collider col)
     {
-        Destroy(col.gameObject);
+        if (col.gameObject.layer == LayerMask.NameToLayer("Mob"))
+        {
+            col.GetComponent<MobEntity>().Life = 0;
+        }
     }
 }
