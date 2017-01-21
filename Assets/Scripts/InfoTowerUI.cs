@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InfoTower : MonoBehaviour {
+public class InfoTowerUI : MonoBehaviour {
 
 
     public string towerName;

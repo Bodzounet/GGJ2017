@@ -9,12 +9,18 @@ public class JoystickManager : MonoBehaviour
     private PlayerIndex[] _playerIndex;
     private GamePadState[] _state;
     private GamePadState[] _prevState;
+
     private bool _lockSlideTower = false;
+    private bool _lockSlideMinion = false;
 
-    public GameObject dataHolder1;
-    private SwitchItemData _switchDataholder1;
+    public GameObject TowerHolder1;
+    private SwitchItemData _switchTowerHolder1;
 
-    public GameObject dataHolder2;
+    public GameObject MinionHolder1;
+    private SwitchItemData _switchMinionHolder1;
+
+    
+
     // Use this for initialization
     void Start()
     {
@@ -24,7 +30,8 @@ public class JoystickManager : MonoBehaviour
         _playerIndexSet = new bool[2];
         _playerIndexSet[0] = false;
         _playerIndexSet[1] = false;
-        _switchDataholder1 = dataHolder1.GetComponent<SwitchItemData>();
+        _switchTowerHolder1 = TowerHolder1.GetComponent<SwitchItemData>();
+        _switchMinionHolder1 = MinionHolder1.GetComponent<SwitchItemData>();
     }
 
     // Update is called once per frame
@@ -53,19 +60,33 @@ public class JoystickManager : MonoBehaviour
             _prevState[1] = _state[1];
             _state[1] = GamePad.GetState(_playerIndex[1]);
         }
-        if (_state[0].Triggers.Left > 0 && _lockSlideTower == false)
+
+        if (_state[0].Buttons.LeftShoulder == ButtonState.Pressed && _lockSlideTower == false)
         {
             Invoke("DelockUISlideTower", 0.5f);
-            _switchDataholder1.SwitchPositionFromLeftToRight();
+            _switchTowerHolder1.SwitchPositionFromRightToLeft();
             _lockSlideTower = true;
         }
-        if (_state[0].Triggers.Right > 0 && _lockSlideTower == false)
+        if (_state[0].Buttons.RightShoulder == ButtonState.Pressed && _lockSlideTower == false)
         {
             Invoke("DelockUISlideTower", 0.5f);
-            _switchDataholder1.SwitchPositionFromRightToLeft();
+            _switchTowerHolder1.SwitchPositionFromLeftToRight();
             _lockSlideTower = true;
         }
 
+        if (_state[0].Triggers.Left > 0 && _lockSlideMinion == false)
+        {
+            Invoke("DelockUISlideMinion", 0.5f);
+            _switchMinionHolder1.SwitchPositionFromRightToLeft();
+            _lockSlideMinion = true;
+        }
+        if (_state[0].Triggers.Right > 0 && _lockSlideMinion == false)
+        {
+            Invoke("DelockUISlideMinion", 0.5f);
+            _switchMinionHolder1.SwitchPositionFromLeftToRight();
+            _lockSlideMinion = true;
+        }
+       
         if (_state[0].Buttons.A == ButtonState.Pressed)
         {
             LaunchPrevisualisationTower();
@@ -91,9 +112,14 @@ public class JoystickManager : MonoBehaviour
         _lockSlideTower = false;
     }
 
+    void DelockUISlideMinion()
+    {
+        _lockSlideMinion= false;
+    }
+
     void LaunchPrevisualisationTower()
     {
-        Debug.Log("Lancement de la prévisualisation ... Instanciation de la tour : " + _switchDataholder1.GetCurrentNameTower());
+        Debug.Log("Lancement de la prévisualisation ... Instanciation de la tour : " + _switchTowerHolder1.GetCurrentNameTower());
     }
 
 
