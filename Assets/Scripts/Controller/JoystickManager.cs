@@ -53,18 +53,15 @@ public class JoystickManager : MonoBehaviour
             _prevState[1] = _state[1];
             _state[1] = GamePad.GetState(_playerIndex[1]);
         }
-
-        if (_state[0].ThumbSticks.Left.X > 0 && _lockSlideTower == false)
+        if (_state[0].Triggers.Left > 0 && _lockSlideTower == false)
         {
-            Debug.Log("right ");
-            Invoke("DelockUISlideTower", 1.0f);
+            Invoke("DelockUISlideTower", 0.5f);
             _switchDataholder1.SwitchPositionFromLeftToRight();
             _lockSlideTower = true;
         }
-        if (_state[0].ThumbSticks.Left.X < 0 && _lockSlideTower == false)
+        if (_state[0].Triggers.Right > 0 && _lockSlideTower == false)
         {
-            Debug.Log("left ");
-            Invoke("DelockUISlideTower", 1.0f);
+            Invoke("DelockUISlideTower", 0.5f);
             _switchDataholder1.SwitchPositionFromRightToLeft();
             _lockSlideTower = true;
         }
@@ -74,6 +71,19 @@ public class JoystickManager : MonoBehaviour
             LaunchPrevisualisationTower();
         }
 
+    }
+
+    public void LaunchVib(float vibtime)
+    {
+        StartCoroutine("LaunchVibCoroutine", vibtime);
+    }
+
+    IEnumerator LaunchVibCoroutine(float VibTime)
+    {
+        GamePad.SetVibration(_playerIndex[0], 1f, 1f);
+        Debug.Log(VibTime);
+        yield return new WaitForSeconds(VibTime);
+        GamePad.SetVibration(_playerIndex[0], 0f, 0f);
     }
 
     void DelockUISlideTower()
