@@ -8,6 +8,9 @@ public class XRayTower : TowerEntity
     private bool _isFighting = false;
     private List<GameObject> _targets = new List<GameObject>();
 
+    public GameObject projectile;
+    public Transform projectileSpawnPos;
+
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Mob"))
@@ -37,6 +40,10 @@ public class XRayTower : TowerEntity
 
     protected override void Ivk_Attack()
     {
-      //  Debug.Log("j'attaque");
+        var proj = GameObject.Instantiate(projectile, projectileSpawnPos.position, Quaternion.identity) as GameObject;
+        var projScript = proj.GetComponent<XRayTowerProjectile>();
+        projScript.target = _targets[0].transform;
+        projScript.dmgs = Dommages;
+        
     }
 }
