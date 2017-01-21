@@ -28,6 +28,8 @@ public class PlaceTowerOnMap : MonoBehaviour
     public SwitchItemData sid;
     public CurrenciesManager cm;
 
+    public GoldCost gc;
+
     void Start()
     {
         // to make it work, _xsize has to be equal to _ySize
@@ -52,9 +54,12 @@ public class PlaceTowerOnMap : MonoBehaviour
         if (jm.state[0].Buttons.A == XInputDotNetPure.ButtonState.Pressed && _overlappingTower == false && _IsButtonAPressed == false)
         {
             _IsButtonAPressed = true;
-            _CreateTower();
-            int gold = towers.Single(x => x.id == currentTower).prefab.GetComponentInChildren<TowerEntity>(true).GoldCost;
-            cm.currencies[CurrenciesManager.e_Currencies.Gold].UseCurrency(gold);
+            int gold = gc.GetTowerCost(currentTower);
+            if (cm.currencies[CurrenciesManager.e_Currencies.Gold].HasEnoughCurrency(gold))
+            {
+                _CreateTower();
+                cm.currencies[CurrenciesManager.e_Currencies.Gold].UseCurrency(gold);
+            }
             _timeSmoothSlide = _startTimeSmoothSlide;
 
         }

@@ -30,12 +30,14 @@ public class GoldCost : MonoBehaviour
         return Mathf.CeilToInt(((1 + percentageAdditiveCostPerLevel * (_associatedUpgradeCenter.towerToLevel[id] - 1) / 100.0f)) * towerToGoldWorth.Single(x => x.id == id).worth);
     }
 
+    [System.Serializable]
     public struct Dict_MobToGold
     {
         public MobEntity.e_MobId id;
         public int worth;
     }
 
+    [System.Serializable]
     public struct Dict_TowerToGold
     {
         public TowerEntity.e_TowerId id;
