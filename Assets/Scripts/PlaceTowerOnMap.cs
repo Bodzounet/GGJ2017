@@ -38,7 +38,6 @@ public class PlaceTowerOnMap : MonoBehaviour
 
         _correction = new Vector2(-_xSize * XSize / 2, -_ySize * YSize / 2);
         sid.OnSwitchItem += UpdatePrevisualisation;
-       // SetTowerModel(TowerEntity.e_TowerId.XRAY);
     }
 
     private bool _IsButtonAPressed = false;
@@ -88,7 +87,7 @@ public class PlaceTowerOnMap : MonoBehaviour
         //_currentCoord = Vector2.zero;
         _previsualisation = Instantiate(previsualisations.Single(x => x.id == currentTower).prefab) as GameObject;
         _previsualisation.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x, 0, _currentCoord.y * _ySize + _correction.y);
-        _previsualisation.transform.localScale = new Vector3(_xSize, _xSize, _xSize);
+        _previsualisation.transform.localScale = (new Vector3(_xSize, _xSize, _xSize) / 1.5f);
         _rd = _previsualisation.GetComponentsInChildren<Renderer>();
         _UpdateOverlappingTower();
         _ComputeOverlappingTower();
@@ -96,6 +95,7 @@ public class PlaceTowerOnMap : MonoBehaviour
 
     private void _CreateTower()
     {
+        Debug.Log("caca");
         var v = GameObject.Instantiate(towers.Single(x => x.id == currentTower).prefab, _previsualisation.transform.position, Quaternion.identity) as GameObject;
         v.transform.localScale = _previsualisation.transform.localScale;
         Destroy(_previsualisation);
