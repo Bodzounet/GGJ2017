@@ -100,7 +100,6 @@ public class PlaceTowerOnMap : MonoBehaviour
 
     private void _CreateTower()
     {
-        Debug.Log("caca");
         var v = GameObject.Instantiate(towers.Single(x => x.id == currentTower).prefab, _previsualisation.transform.position, Quaternion.identity) as GameObject;
         v.transform.localScale = _previsualisation.transform.localScale;
         Destroy(_previsualisation);
