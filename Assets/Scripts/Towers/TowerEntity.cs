@@ -12,6 +12,8 @@ public abstract class TowerEntity : MonoBehaviour
         None
     }
 
+    public GameInfos.e_Team team = GameInfos.e_Team.TEAM1;
+
     [SerializeField]
     private float _baseDommages;
     public float BaseDommages

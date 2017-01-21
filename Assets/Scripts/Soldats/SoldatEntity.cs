@@ -14,6 +14,7 @@ public class SoldatEntity : MonoBehaviour {
         None
     }
 
+
     [SerializeField]
     private float _life;
     public float Life
@@ -43,6 +44,7 @@ public class SoldatEntity : MonoBehaviour {
     }
 
     public e_SoldatId id;
+    public GameInfos.e_Team team;
 
     void Start () {
 	
