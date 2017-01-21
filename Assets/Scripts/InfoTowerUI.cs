@@ -4,7 +4,7 @@ using System.Collections;
 public class InfoTowerUI : MonoBehaviour {
 
 
-    public string towerName;
+    public TowerEntity.e_TowerId towerId;
 
 	// Use this for initialization
 	void Start () {

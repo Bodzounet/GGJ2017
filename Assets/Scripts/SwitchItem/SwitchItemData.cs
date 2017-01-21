@@ -14,6 +14,8 @@ public class SwitchItemData : MonoBehaviour
 {
     private List<RectTransform> _holders = new List<RectTransform>();
     private List<Vector3> _pos = new List<Vector3>();
+    public delegate void SwitchItem(TowerEntity.e_TowerId towerId);
+    public event SwitchItem OnSwitchItem;
 
     void Start()
     {
@@ -22,6 +24,8 @@ public class SwitchItemData : MonoBehaviour
             _holders.Add(transform.GetChild(i) as RectTransform);
             _pos.Add(_holders[i].transform.localPosition);
         }
+        if (OnSwitchItem != null)
+            OnSwitchItem(_holders[2].GetComponent<InfoTowerUI>().towerId);
     }
 
     public void SwitchPositionFromLeftToRight()
@@ -37,6 +41,9 @@ public class SwitchItemData : MonoBehaviour
         reordered.AddRange(_holders.Take(_holders.Count - 1));
 
         _holders = reordered;
+
+        if (OnSwitchItem != null)
+            OnSwitchItem(_holders[2].GetComponent<InfoTowerUI>().towerId);
     }
 
     public void SwitchPositionFromRightToLeft()
@@ -52,10 +59,12 @@ public class SwitchItemData : MonoBehaviour
         reordered.Add(_holders[0]);
 
         _holders = reordered;
+        if (OnSwitchItem != null)
+            OnSwitchItem(_holders[2].GetComponent<InfoTowerUI>().towerId);
     }
 
-    public string GetCurrentNameTower()
+    public TowerEntity.e_TowerId GetCurrentNameTower()
     {
-        return (_holders[1].GetComponent<InfoTowerUI>().towerName);
+        return (_holders[1].GetComponent<InfoTowerUI>().towerId);
     }
 }

@@ -7,7 +7,7 @@ public class JoystickManager : MonoBehaviour
 
     private bool[] _playerIndexSet;
     private PlayerIndex[] _playerIndex;
-    private GamePadState[] _state;
+    public GamePadState[] state;
     private GamePadState[] _prevState;
 
     private bool _lockSlideTower = false;
@@ -25,7 +25,7 @@ public class JoystickManager : MonoBehaviour
     void Start()
     {
         _playerIndex = new PlayerIndex[2];
-        _state = new GamePadState[2];
+        state = new GamePadState[2];
         _prevState = new GamePadState[2];
         _playerIndexSet = new bool[2];
         _playerIndexSet[0] = false;
@@ -52,42 +52,42 @@ public class JoystickManager : MonoBehaviour
             }
         }
 
-        _prevState[0] = _state[0];
-        _state[0] = GamePad.GetState(_playerIndex[0]);
+        _prevState[0] = state[0];
+        state[0] = GamePad.GetState(_playerIndex[0]);
 
         if (_playerIndexSet[1])
         {
-            _prevState[1] = _state[1];
-            _state[1] = GamePad.GetState(_playerIndex[1]);
+            _prevState[1] = state[1];
+            state[1] = GamePad.GetState(_playerIndex[1]);
         }
 
-        if (_state[0].Buttons.LeftShoulder == ButtonState.Pressed && _lockSlideTower == false)
+        if (state[0].Buttons.LeftShoulder == ButtonState.Pressed && _lockSlideTower == false)
         {
             Invoke("DelockUISlideTower", 0.5f);
             _switchTowerHolder1.SwitchPositionFromRightToLeft();
             _lockSlideTower = true;
         }
-        if (_state[0].Buttons.RightShoulder == ButtonState.Pressed && _lockSlideTower == false)
+        if (state[0].Buttons.RightShoulder == ButtonState.Pressed && _lockSlideTower == false)
         {
             Invoke("DelockUISlideTower", 0.5f);
             _switchTowerHolder1.SwitchPositionFromLeftToRight();
             _lockSlideTower = true;
         }
 
-        if (_state[0].Triggers.Left > 0 && _lockSlideMinion == false)
+        if (state[0].Triggers.Left > 0 && _lockSlideMinion == false)
         {
             Invoke("DelockUISlideMinion", 0.5f);
             _switchMinionHolder1.SwitchPositionFromRightToLeft();
             _lockSlideMinion = true;
         }
-        if (_state[0].Triggers.Right > 0 && _lockSlideMinion == false)
+        if (state[0].Triggers.Right > 0 && _lockSlideMinion == false)
         {
             Invoke("DelockUISlideMinion", 0.5f);
             _switchMinionHolder1.SwitchPositionFromLeftToRight();
             _lockSlideMinion = true;
         }
        
-        if (_state[0].Buttons.A == ButtonState.Pressed)
+        if (state[0].Buttons.A == ButtonState.Pressed)
         {
             LaunchPrevisualisationTower();
         }
@@ -126,7 +126,7 @@ public class JoystickManager : MonoBehaviour
   /*  void OnGUI()
     {
         string text = "Use left stick to turn the cube, hold A to change color\n";
-        text += string.Format("\tSticks Left {0} {1} Right {2} {3}\n", _state[0].ThumbSticks.Left.X, _state[0].ThumbSticks.Left.Y, _state[0].ThumbSticks.Right.X, _state[0].ThumbSticks.Right.Y);
+        text += string.Format("\tSticks Left {0} {1} Right {2} {3}\n", state[0].ThumbSticks.Left.X, state[0].ThumbSticks.Left.Y, state[0].ThumbSticks.Right.X, state[0].ThumbSticks.Right.Y);
         GUI.Label(new Rect(0, 0, Screen.width, Screen.height), text);
     }
     */

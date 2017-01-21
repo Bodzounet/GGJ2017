@@ -79,6 +79,7 @@ public abstract class TowerEntity : MonoBehaviour
             AttackSpeed = BaseAttackSpeed * (1 + _bonusPercentagePerNextLevel * (_level - 1) / 100.0f); 
             Dommages = BaseDommages * (1 + _bonusPercentagePerNextLevel * (_level - 1) / 100.0f);
             GoldCost = Mathf.FloorToInt(BaseGoldCost * (1 + _bonusPercentagePerNextLevel * (_level - 1) / 100.0f));
+            Debug.Log("goldCost = ");
         }
     }
 

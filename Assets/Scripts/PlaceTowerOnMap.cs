@@ -23,7 +23,11 @@ public class PlaceTowerOnMap : MonoBehaviour
     private float _ySize;
 
     private TowerEntity.e_TowerId currentTower = TowerEntity.e_TowerId.None;
-	
+
+    public JoystickManager jm;
+    public SwitchItemData sid;
+    public CurrenciesManager cm;
+
     void Start()
     {
         // to make it work, _xsize has to be equal to _ySize
@@ -31,11 +35,13 @@ public class PlaceTowerOnMap : MonoBehaviour
         _ySize = (margins[0].position.z - margins[2].position.z) / YSize;
 
         _correction = new Vector2(-_xSize * XSize / 2, -_ySize * YSize / 2);
-
-        SetTowerModel(TowerEntity.e_TowerId.SHOCK);
+        sid.OnSwitchItem += UpdatePrevisualisation;
+       // SetTowerModel(TowerEntity.e_TowerId.XRAY);
     }
 
-	void Update ()
+    private bool _IsButtonAPressed = false;
+
+    void Update()
     {
         if (currentTower == TowerEntity.e_TowerId.None)
             return;
@@ -43,9 +49,18 @@ public class PlaceTowerOnMap : MonoBehaviour
         _UpdatePrevisualisationPosition();
         _SetPrevisualisationColor();
 
-        if (Input.GetKeyDown(KeyCode.Space) && _overlappingTower == false)
+        if (jm.state[0].Buttons.A == XInputDotNetPure.ButtonState.Pressed && _overlappingTower == false && _IsButtonAPressed == false)
         {
+            _IsButtonAPressed = true;
             _CreateTower();
+            int gold = towers.Single(x => x.id == currentTower).prefab.GetComponentInChildren<TowerEntity>(true).GoldCost;
+            cm.currencies[CurrenciesManager.e_Currencies.Gold].UseCurrency(gold);
+            _timeSmoothSlide = _startTimeSmoothSlide;
+
+        }
+        if (jm.state[0].Buttons.A == XInputDotNetPure.ButtonState.Released)
+        {
+            _IsButtonAPressed = false;
         }
     }
 
@@ -58,6 +73,7 @@ public class PlaceTowerOnMap : MonoBehaviour
         }
         else
         {
+            Destroy(_previsualisation);
             _CreatePrevisualisation();
         }
     }
@@ -81,33 +97,63 @@ public class PlaceTowerOnMap : MonoBehaviour
         _CreatePrevisualisation();
     }
 
+    void UpdatePrevisualisation(TowerEntity.e_TowerId towerId)
+    {
+        SetTowerModel(towerId);
+    }
+
+    private bool _smoothSlide = false;
+
+    public float _startTimeSmoothSlide = 0.2f;
+    public float _timeSmoothSlide = 0.2f;
+    public float _opSmoothSlide = 1.1f;
+
     private void _UpdatePrevisualisationPosition()
     {
         bool hasMove = false;
-        if (Input.GetKeyDown(KeyCode.S))
+        if (jm.state[0].ThumbSticks.Left.Y < 0 && _smoothSlide == false)
         {
             hasMove = true;
             if (_currentCoord.y > 0)
                 _currentCoord.y--;
+            Invoke("SlideSmooth", _timeSmoothSlide);
+            _timeSmoothSlide = _timeSmoothSlide / _opSmoothSlide;
+            _smoothSlide = true;
         }
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (jm.state[0].ThumbSticks.Left.Y > 0 && _smoothSlide == false)
         {
             hasMove = true;
             if (_currentCoord.y < YSize)
                 _currentCoord.y++;
+            Invoke("SlideSmooth", _timeSmoothSlide);
+            _timeSmoothSlide = _timeSmoothSlide / _opSmoothSlide;
+            _smoothSlide = true;
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (jm.state[0].ThumbSticks.Left.X < 0 && _smoothSlide == false)
         {
             hasMove = true;
             if (_currentCoord.x > 0)
                 _currentCoord.x--;
+            Invoke("SlideSmooth", _timeSmoothSlide);
+            _timeSmoothSlide = _timeSmoothSlide / _opSmoothSlide;
+            _smoothSlide = true;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+
+        if (jm.state[0].ThumbSticks.Left.X > 0 && _smoothSlide == false)
         {
             hasMove = true;
             if (_currentCoord.x < XSize)
                 _currentCoord.x++;
+            Invoke("SlideSmooth", _timeSmoothSlide);
+            _timeSmoothSlide = _timeSmoothSlide / _opSmoothSlide;
+            _smoothSlide = true;
         }
+
+        if (jm.state[0].ThumbSticks.Left.Y == 0 && jm.state[0].ThumbSticks.Left.X == 0)
+        {
+            _timeSmoothSlide = _startTimeSmoothSlide;
+        }
+        
 
         _previsualisation.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x, 0, _currentCoord.y * _ySize + _correction.y);
 
@@ -115,6 +161,11 @@ public class PlaceTowerOnMap : MonoBehaviour
         {
             _ComputeOverlappingTower();
         }
+    }
+
+    void SlideSmooth()
+    {
+        _smoothSlide = false;
     }
 
     private void _SetPrevisualisationColor()

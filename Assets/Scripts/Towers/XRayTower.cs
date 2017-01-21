@@ -37,6 +37,6 @@ public class XRayTower : TowerEntity
 
     protected override void Ivk_Attack()
     {
-        Debug.Log("j'attaque");
+      //  Debug.Log("j'attaque");
     }
 }
