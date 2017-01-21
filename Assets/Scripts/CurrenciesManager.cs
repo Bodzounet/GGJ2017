@@ -23,6 +23,8 @@ public class CurrenciesManager : MonoBehaviour
 
     public Text timeIncomeText;
 
+    public JoystickManager jm;
+
     [HideInInspector]
     public Dictionary<e_Currencies, CurrencyHelper> currencies;
 
@@ -67,10 +69,7 @@ public class CurrenciesManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
             currencies[e_Currencies.Life].AddCurrency(1);
         if (Input.GetKeyDown(KeyCode.Backspace))
-        {
             currencies[e_Currencies.Life].UseCurrency(1);
-            GameObject.Find("JoystickController").GetComponent<JoystickManager>().LaunchVib(0.2f);
-        }
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
             currencies[e_Currencies.Income].AddCurrency(1);
 

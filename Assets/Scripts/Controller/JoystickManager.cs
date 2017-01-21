@@ -50,16 +50,16 @@ public class JoystickManager : MonoBehaviour
         }
     }
 
-    public void LaunchVib(float vibtime)
+    private int playervibID = 0;
+    public void LaunchVib(int playerID, float vibtime)
     {
+        playervibID = playerID;
         StartCoroutine("LaunchVibCoroutine", vibtime);
     }
 
     IEnumerator LaunchVibCoroutine(float VibTime)
     {
-        GamePad.SetVibration(_playerIndex[0], 1f, 1f);
-        Debug.Log(VibTime);
+        GamePad.SetVibration(_playerIndex[playervibID], 1f, 1f);
         yield return new WaitForSeconds(VibTime);
-        GamePad.SetVibration(_playerIndex[0], 0f, 0f);
     }
 }

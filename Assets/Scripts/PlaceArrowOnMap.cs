@@ -65,7 +65,14 @@ public class PlaceArrowOnMap : MonoBehaviour
         {
             isButtonBPressed = true;
             // valeurs en dur pour tester, à modifier
-            mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
+            if (team == GameInfos.e_Team.TEAM1)
+            {
+                mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM2);
+            }
+            else
+            {
+                mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
+            }
             // valeurs en dur pour tester, à modifier
         }
         if (jm.state[playerdID].Buttons.B == XInputDotNetPure.ButtonState.Released)
