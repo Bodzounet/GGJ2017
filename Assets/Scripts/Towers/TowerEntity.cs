@@ -48,23 +48,6 @@ public abstract class TowerEntity : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private int _baseGoldCost;
-    public int BaseGoldCost
-    {
-        get { return _baseGoldCost; }
-    }
-
-    private int _goldCost;
-    public int GoldCost
-    {
-        get { return _goldCost; }
-        set
-        {
-            _goldCost = value;
-        }
-    }
-
     [Range(0, 100)]
     [SerializeField]
     protected int _bonusPercentagePerNextLevel;
@@ -78,8 +61,6 @@ public abstract class TowerEntity : MonoBehaviour
             _level = value;
             AttackSpeed = BaseAttackSpeed * (1 + _bonusPercentagePerNextLevel * (_level - 1) / 100.0f); 
             Dommages = BaseDommages * (1 + _bonusPercentagePerNextLevel * (_level - 1) / 100.0f);
-            GoldCost = Mathf.FloorToInt(BaseGoldCost * (1 + _bonusPercentagePerNextLevel * (_level - 1) / 100.0f));
-            Debug.Log("goldCost = ");
         }
     }
 

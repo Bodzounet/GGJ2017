@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SoldatEntity : MonoBehaviour {
+public class MobEntity : MonoBehaviour {
 
     // Use this for initialization
-    public enum e_SoldatId
+    public enum e_MobId
     {
         SPEEDER,
         SOLDIER,
@@ -30,28 +30,12 @@ public class SoldatEntity : MonoBehaviour {
     }
 
     [SerializeField]
-    private float _worthGold;
-    public float WorthGold
-    {
-        get { return _worthGold; }
-    }
-
-    [SerializeField]
     private float _income;
     public float Income
     {
         get { return _income; }
     }
 
-    public e_SoldatId id;
+    public e_MobId id;
     public GameInfos.e_Team team;
-
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
