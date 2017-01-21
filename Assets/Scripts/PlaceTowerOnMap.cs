@@ -39,8 +39,8 @@ public class PlaceTowerOnMap : MonoBehaviour
         _ySize = (margins[0].position.z - margins[2].position.z) / YSize;
 
         _correction = new Vector2(-_xSize * XSize / 2, -_ySize * YSize / 2);
-    //    sid.OnSwitchItem += UpdatePrevisualisation;
-       // SetTowerModel(TowerEntity.e_TowerId.XRAY);
+        sid.OnSwitchItem += UpdatePrevisualisation;
+        SetTowerModel(TowerEntity.e_TowerId.XRAY);
     }
 
     private bool _IsButtonAPressed = false;
@@ -53,7 +53,7 @@ public class PlaceTowerOnMap : MonoBehaviour
         _UpdatePrevisualisationPosition();
         _SetPrevisualisationColor();
 
-        if (jm.state[0].Buttons.A == XInputDotNetPure.ButtonState.Pressed && _overlappingTower == false && _IsButtonAPressed == false)
+        if (jm.state[playerID].Buttons.A == XInputDotNetPure.ButtonState.Pressed && _overlappingTower == false && _IsButtonAPressed == false)
         {
             _IsButtonAPressed = true;
             int gold = gc.GetTowerCost(currentTower);

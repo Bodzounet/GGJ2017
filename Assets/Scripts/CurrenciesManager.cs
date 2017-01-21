@@ -21,6 +21,8 @@ public class CurrenciesManager : MonoBehaviour
     public GameObject goUITextIncome;
     private Text _incomeText;
 
+    public Text timeIncomeText;
+
     [HideInInspector]
     public Dictionary<e_Currencies, CurrencyHelper> currencies;
 
@@ -28,6 +30,7 @@ public class CurrenciesManager : MonoBehaviour
     public int initialIncome;
     public int life;
     public float incomeTime;
+    private int timeCount;
 
     void Awake()
     {
@@ -51,7 +54,9 @@ public class CurrenciesManager : MonoBehaviour
         currencies[e_Currencies.Life].AddCurrency(life);
         currencies[e_Currencies.Income].AddCurrency(initialIncome);
 
+        timeCount = Mathf.FloorToInt(incomeTime);
         StartCoroutine("AddIncomeToGold", incomeTime);
+
 
     }
 
@@ -94,8 +99,10 @@ public class CurrenciesManager : MonoBehaviour
         while (_incomeCheck)
         {
             currencies[e_Currencies.Gold].AddCurrency(currencies[e_Currencies.Income].Amount);
-            Debug.Log("income TIME !!");
+            timeCount--;
+            timeIncomeText.text = timeCount.ToString();
             yield return new WaitForSeconds(time);
+            timeCount = Mathf.FloorToInt(time);
         }
     }
     public class CurrencyHelper
