@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class ShockWaveTower : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+public class ShockWaveTower : TowerEntity
+{
+    protected override void Ivk_Attack()
+    {
+        throw new NotImplementedException();
+    }
 }
