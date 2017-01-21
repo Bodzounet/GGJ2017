@@ -17,6 +17,12 @@ public class PlaceArrowOnMap : MonoBehaviour
     private Vector2 _currentCoord = new Vector2(0, 0);
     private Vector2 _correction;
 
+
+    public JoystickManager jm;
+    public SwitchItemData sid;
+    public CurrenciesManager cm;
+    public GoldCost gc;
+
     void Start ()
     {
         _XSize = FindObjectOfType<MapData>().XSize;
