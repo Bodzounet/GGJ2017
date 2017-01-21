@@ -3,7 +3,10 @@ using System.Collections;
 
 public class PlaceArrowOnMap : MonoBehaviour
 {
+    public GameInfos.e_Team team;
+
     public GameObject arrowModel;
+    public MobSpawner mobSpawner;
 
     public Transform[] margins; // LeftArrow, RightArrow
 
@@ -42,7 +45,9 @@ public class PlaceArrowOnMap : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-
+            // valeurs en dur pour tester, à modifier
+            mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + _correction.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
+            // valeurs en dur pour tester, à modifier
         }
     }
 }

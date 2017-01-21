@@ -4,13 +4,10 @@ using System.Collections.Generic;
 
 public class RegularAI : MonoBehaviour
 {
-
-    // Use this for initialization
-
     public GameObject goal;
 
     private NavMeshAgent _agent;
-    private MobEntity soldier;
+    private MobEntity _soldier;
     private float _previousRemaningDistance = -1;
 
     private List<GameObject> _triggeredTowerList;
@@ -19,12 +16,13 @@ public class RegularAI : MonoBehaviour
     void Start()
     {
         _agent = this.GetComponent<NavMeshAgent>();
-        soldier = this.GetComponent<MobEntity>();
-        _agent.speed = soldier.Speed;
+        _soldier = this.GetComponent<MobEntity>();
+        _agent.speed = _soldier.Speed;
         _triggeredTowerList = new List<GameObject>();
+
+        goal = GameObject.Find("Goal");
     }
 
-    // Update is called once per frame
     void Update()
     {
         _agent.SetDestination(goal.transform.position);

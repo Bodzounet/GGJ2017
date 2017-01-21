@@ -45,13 +45,4 @@ public class MobEntity : MonoBehaviour {
 
     public e_MobId id;
     public GameInfos.e_Team team;
-
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
