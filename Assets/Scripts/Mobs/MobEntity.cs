@@ -77,6 +77,11 @@ public class MobEntity : MonoBehaviour {
 
     }
 
+    void Start()
+    {
+        Speed = BaseSpeed;
+    }
+
     void Ivk_SlowDebuff()
     {
         Speed = BaseSpeed;
