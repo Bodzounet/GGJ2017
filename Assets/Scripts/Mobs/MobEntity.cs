@@ -30,13 +30,6 @@ public class MobEntity : MonoBehaviour {
     }
 
     [SerializeField]
-    private float _worthGold;
-    public float WorthGold
-    {
-        get { return _worthGold; }
-    }
-
-    [SerializeField]
     private float _income;
     public float Income
     {
