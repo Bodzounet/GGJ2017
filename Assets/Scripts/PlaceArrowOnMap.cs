@@ -58,7 +58,7 @@ public class PlaceArrowOnMap : MonoBehaviour
             _timeSmoothSlide = _timeSmoothSlide / _opSmoothSlide;
             _smoothSlide = true;
         }
-        Debug.Log(playerdID);
+
         _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z);
 
         if (jm.state[playerdID].Buttons.B == XInputDotNetPure.ButtonState.Pressed && !isButtonBPressed)

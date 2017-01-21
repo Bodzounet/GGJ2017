@@ -44,7 +44,6 @@ public class JoystickManager : MonoBehaviour
 
         if (_playerIndexSet[1])
         {
-            Debug.Log("deuxième joueur");
             _prevState[1] = state[1];
             state[1] = GamePad.GetState(_playerIndex[1]);
         }
