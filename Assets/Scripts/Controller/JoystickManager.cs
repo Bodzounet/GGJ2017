@@ -44,22 +44,21 @@ public class JoystickManager : MonoBehaviour
 
         if (_playerIndexSet[1])
         {
-            Debug.Log("deuxième joueur");
             _prevState[1] = state[1];
             state[1] = GamePad.GetState(_playerIndex[1]);
         }
     }
 
-    public void LaunchVib(float vibtime)
+    private int playervibID = 0;
+    public void LaunchVib(int playerID, float vibtime)
     {
+        playervibID = playerID;
         StartCoroutine("LaunchVibCoroutine", vibtime);
     }
 
     IEnumerator LaunchVibCoroutine(float VibTime)
     {
-        GamePad.SetVibration(_playerIndex[0], 1f, 1f);
-        Debug.Log(VibTime);
+        GamePad.SetVibration(_playerIndex[playervibID], 1f, 1f);
         yield return new WaitForSeconds(VibTime);
-        GamePad.SetVibration(_playerIndex[0], 0f, 0f);
     }
 }
