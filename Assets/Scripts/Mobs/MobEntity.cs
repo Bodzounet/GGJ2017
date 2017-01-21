@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SoldatEntity : MonoBehaviour {
+public class MobEntity : MonoBehaviour {
 
     // Use this for initialization
-    public enum e_SoldatId
+    public enum e_MobId
     {
         SPEEDER,
         SOLDIER,
@@ -43,7 +43,7 @@ public class SoldatEntity : MonoBehaviour {
         get { return _income; }
     }
 
-    public e_SoldatId id;
+    public e_MobId id;
     public GameInfos.e_Team team;
 
     void Start () {

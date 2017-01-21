@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class NormalAI : MonoBehaviour
+public class RegularAI : MonoBehaviour
 {
 
     // Use this for initialization
@@ -10,7 +10,7 @@ public class NormalAI : MonoBehaviour
     public GameObject goal;
 
     private NavMeshAgent _agent;
-    private SoldatEntity soldier;
+    private MobEntity soldier;
     private float _previousRemaningDistance = -1;
 
     private List<GameObject> _triggeredTowerList;
@@ -19,7 +19,7 @@ public class NormalAI : MonoBehaviour
     void Start()
     {
         _agent = this.GetComponent<NavMeshAgent>();
-        soldier = this.GetComponent<SoldatEntity>();
+        soldier = this.GetComponent<MobEntity>();
         _agent.speed = soldier.Speed;
         _triggeredTowerList = new List<GameObject>();
     }
