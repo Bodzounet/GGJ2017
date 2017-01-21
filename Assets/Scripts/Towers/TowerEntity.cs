@@ -3,6 +3,15 @@ using System.Collections;
 
 public abstract class TowerEntity : MonoBehaviour
 {
+    public enum e_TowerId
+    {
+        XRAY,
+        SONIC,
+        SHOCK,
+
+        None
+    }
+
     [SerializeField]
     private float _baseDommages;
     public float BaseDommages
