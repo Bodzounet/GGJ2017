@@ -1,17 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class SonicTower : TowerEntity
 {
-    int targetInRange = 0;
+    public ParticleSystem[] pss;
+
+    List<MobEntity> _targetsInRange = new List<MobEntity>();
+
+    private bool _isAttacking;
 
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Mob"))
         {
-            InvokeRepeating("Ivk_Attack", 0, 1 / AttackSpeed);
-            targetInRange++;
+            _targetsInRange.Add(col.gameObject.GetComponent<MobEntity>());
+            if (!_isAttacking)
+            {
+                InvokeRepeating("Ivk_Attack", 0, 1 / AttackSpeed);
+                _isAttacking = true;
+                foreach (var v in pss)
+                    v.Play();
+            }
         }
     }
 
@@ -19,15 +30,22 @@ public class SonicTower : TowerEntity
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Mob"))
         {
-            if (--targetInRange == 0)
+            _targetsInRange.Remove(col.gameObject.GetComponent<MobEntity>());
+            if (_targetsInRange.Count == 0)
             {
                 CancelInvoke("Ivk_Attack");
+                _isAttacking = false;
+                foreach (var v in pss)
+                    v.Stop();
             }
         }
     }
 
     protected override void Ivk_Attack()
     {
-        Debug.Log("j'attaque !");
+        foreach (var v in _targetsInRange)
+        {
+            v.Life -= Dommages;
+        }
     }
 }
