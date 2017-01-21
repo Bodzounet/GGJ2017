@@ -87,11 +87,6 @@ public class JoystickManager : MonoBehaviour
             _lockSlideMinion = true;
         }
        
-        if (state[0].Buttons.A == ButtonState.Pressed)
-        {
-            LaunchPrevisualisationTower();
-        }
-
     }
 
     public void LaunchVib(float vibtime)
@@ -116,12 +111,6 @@ public class JoystickManager : MonoBehaviour
     {
         _lockSlideMinion= false;
     }
-
-    void LaunchPrevisualisationTower()
-    {
-        Debug.Log("Lancement de la prévisualisation ... Instanciation de la tour : " + _switchTowerHolder1.GetCurrentNameTower());
-    }
-
 
   /*  void OnGUI()
     {

@@ -20,7 +20,7 @@ public class RegularAI : MonoBehaviour
         _agent.speed = _soldier.Speed;
         _triggeredTowerList = new List<GameObject>();
 
-        goal = GameObject.Find("Goal");
+        goal = GameObject.Find("Destination");
     }
 
     void Update()

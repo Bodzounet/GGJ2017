@@ -10,11 +10,12 @@ using System.Linq;
 ///  - let the same space between each child
 ///  - order the child from the one which is the most on the left to the one which is the most on the right
 /// </summary>
+/// 
 public class SwitchItemData : MonoBehaviour
 {
     private List<RectTransform> _holders = new List<RectTransform>();
     private List<Vector3> _pos = new List<Vector3>();
-    public delegate void SwitchItem(TowerEntity.e_TowerId towerId);
+    public delegate void SwitchItem(TowerEntity.e_TowerId towerId, MobEntity.e_MobId mobID);
     public event SwitchItem OnSwitchItem;
 
     void Start()
@@ -25,7 +26,7 @@ public class SwitchItemData : MonoBehaviour
             _pos.Add(_holders[i].transform.localPosition);
         }
         if (OnSwitchItem != null)
-            OnSwitchItem(_holders[1].GetComponent<InfoTowerUI>().towerId);
+            OnSwitchItem(_holders[1].GetComponent<InfoTowerUI>().towerId, _holders[1].GetComponent<InfosMobUI>().mobId);
     }
 
     public void SwitchPositionFromLeftToRight()
@@ -43,7 +44,7 @@ public class SwitchItemData : MonoBehaviour
         _holders = reordered;
 
         if (OnSwitchItem != null)
-            OnSwitchItem(_holders[1].GetComponent<InfoTowerUI>().towerId);
+            OnSwitchItem(_holders[1].GetComponent<InfoTowerUI>().towerId, _holders[1].GetComponent<InfosMobUI>().mobId);
     }
 
     public void SwitchPositionFromRightToLeft()
@@ -60,11 +61,6 @@ public class SwitchItemData : MonoBehaviour
 
         _holders = reordered;
         if (OnSwitchItem != null)
-            OnSwitchItem(_holders[1].GetComponent<InfoTowerUI>().towerId);
-    }
-
-    public TowerEntity.e_TowerId GetCurrentNameTower()
-    {
-        return (_holders[1].GetComponent<InfoTowerUI>().towerId);
+            OnSwitchItem(_holders[1].GetComponent<InfoTowerUI>().towerId, _holders[1].GetComponent<InfosMobUI>().mobId);
     }
 }

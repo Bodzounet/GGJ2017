@@ -102,7 +102,7 @@ public class PlaceTowerOnMap : MonoBehaviour
         _CreatePrevisualisation();
     }
 
-    void UpdatePrevisualisation(TowerEntity.e_TowerId towerId)
+    void UpdatePrevisualisation(TowerEntity.e_TowerId towerId, MobEntity.e_MobId mobID)
     {
         SetTowerModel(towerId);
     }

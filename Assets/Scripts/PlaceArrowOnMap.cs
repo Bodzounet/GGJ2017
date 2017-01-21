@@ -35,25 +35,53 @@ public class PlaceArrowOnMap : MonoBehaviour
         _arrow.transform.localScale = new Vector3(_xSize, _xSize, _xSize);
     }
 
+    private bool isButtonBPressed = false;
+    private bool _smoothSlide = false;
+    public float _startTimeSmoothSlide = 0.2f;
+    public float _timeSmoothSlide = 0.2f;
+    public float _opSmoothSlide = 1.1f;
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (jm.state[0].ThumbSticks.Right.X < 0 && _smoothSlide == false)
         {
             if (_currentCoord.x > 0)
                 _currentCoord.x--;
+            Invoke("SlideSmooth", _timeSmoothSlide);
+            _timeSmoothSlide = _timeSmoothSlide / _opSmoothSlide;
+            _smoothSlide = true;
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+
+        if (jm.state[0].ThumbSticks.Right.X > 0 && _smoothSlide == false)
         {
             if (_currentCoord.x < _XSize)
                 _currentCoord.x++;
+            Invoke("SlideSmooth", _timeSmoothSlide);
+            _timeSmoothSlide = _timeSmoothSlide / _opSmoothSlide;
+            _smoothSlide = true;
         }
         _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + _correction.x, 0, margins[0].position.z);
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (jm.state[0].Buttons.B == XInputDotNetPure.ButtonState.Pressed && !isButtonBPressed)
         {
+            isButtonBPressed = true;
             // valeurs en dur pour tester, à modifier
             mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + _correction.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
             // valeurs en dur pour tester, à modifier
         }
+        if (jm.state[0].Buttons.B == XInputDotNetPure.ButtonState.Released)
+        {
+            isButtonBPressed = false;
+        }
+        if (jm.state[0].ThumbSticks.Right.Y == 0 && jm.state[0].ThumbSticks.Right.X == 0)
+        {
+            _timeSmoothSlide = _startTimeSmoothSlide;
+        }
+
+    }
+
+    void SlideSmooth()
+    {
+        _smoothSlide = false;
     }
 }
