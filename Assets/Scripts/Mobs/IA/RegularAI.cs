@@ -24,6 +24,7 @@ public class RegularAI : MonoBehaviour
 
     void Update()
     {
+        _agent.ResetPath();
         _agent.SetDestination(goal.transform.position);
         if (_agent.pathStatus == NavMeshPathStatus.PathPartial)
         {
