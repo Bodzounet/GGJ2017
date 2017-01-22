@@ -33,9 +33,13 @@ public class PlaceArrowOnMap : MonoBehaviour
     {
         _XSize = FindObjectOfType<MapData>().XSize;
 
-        _xSize = (margins[1].position.x - margins[0].position.x) / _XSize;;
+        _xSize = (margins[1].position.x - margins[0].position.x) / _XSize; ;
 
         _arrow = GameObject.Instantiate(arrowModel);
+        if (playerdID == 0)
+            _arrow.GetComponent<MeshRenderer>().material.color = Color.blue;
+        else
+            _arrow.GetComponent<MeshRenderer>().material.color = Color.red;
         _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z);
         _arrow.transform.localScale = new Vector3(_xSize, _xSize, _xSize);
     }
