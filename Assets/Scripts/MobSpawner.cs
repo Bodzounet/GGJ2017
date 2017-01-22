@@ -32,7 +32,6 @@ public class MobSpawner : MonoBehaviour
         }
         else if (team == GameInfos.e_Team.TEAM2)
         {
-            Debug.Log("team2");
             if (cmTeam2.currencies[CurrenciesManager.e_Currencies.Gold].HasEnoughCurrency(gcTeam2.GetMobCost(id)))
             {
                 cmTeam2.currencies[CurrenciesManager.e_Currencies.Gold].UseCurrency((gcTeam2.GetMobCost(id)));

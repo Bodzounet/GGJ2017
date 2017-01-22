@@ -38,8 +38,8 @@ public class PlaceArrowOnMap : MonoBehaviour
 
     void UpdateMobIDSpawn(TowerEntity.e_TowerId towerId, MobEntity.e_MobId mobID)
     {
+        Debug.Log(mobID.ToString());
         _mobIDtoSpawn = mobID;
-
     }
 
     private bool isButtonBPressed = false;
