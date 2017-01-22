@@ -34,12 +34,16 @@ public class InfosHandlerUI : MonoBehaviour
         UpdateMobInfosTeam(MobEntity.e_MobId.SOLDIER);
         UpdateMobInfosTeam(MobEntity.e_MobId.SPEEDER);
         UpdateMobInfosTeam(MobEntity.e_MobId.TANKER);
-
         UpdateTowerInfosTeam(TowerEntity.e_TowerId.SHOCK);
         UpdateTowerInfosTeam(TowerEntity.e_TowerId.SONIC);
         UpdateTowerInfosTeam(TowerEntity.e_TowerId.XRAY);
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
     // Mathf.FloorToInt().ToString();
     void UpdateMobInfosTeam(MobEntity.e_MobId mobID)
     {

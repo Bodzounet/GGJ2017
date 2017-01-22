@@ -32,26 +32,38 @@ public class SelectMenuButton : MonoBehaviour
         }
     }
 
+    JoystickManager jm;
+    private bool _smoothSlide = false;
+    void SlideSmooth()
+    {
+        _smoothSlide = false;
+    }
+
     void Start()
     {
         Selected = 0;
+        jm = this.GetComponent<JoystickManager>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (jm.state[1].ThumbSticks.Left.Y > 0 && _smoothSlide == false)
         {
             Selected = _selected - 1 < 0 ? buttons.Length - 1 : _selected - 1;
+            Invoke("SlideSmooth", 0.2f);
             rotateCam.RotateLeft();
+            _smoothSlide = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (jm.state[1].ThumbSticks.Left.Y < 0 && _smoothSlide == false)
         {
             Selected = _selected + 1 == buttons.Length ? 0 : _selected + 1;
+            Invoke("SlideSmooth", 0.2f);
             rotateCam.RotateRight();
+            _smoothSlide = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (jm.state[1].Buttons.A == XInputDotNetPure.ButtonState.Pressed)
         {
             buttons[Selected].GetComponent<Button>().onClick.Invoke();
         }
