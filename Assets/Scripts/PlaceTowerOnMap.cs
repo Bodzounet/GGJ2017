@@ -31,6 +31,8 @@ public class PlaceTowerOnMap : MonoBehaviour
 
     public int playerID;
 
+    public GameInfos.e_Team team;
+
     void Start()
     {
         var v = FindObjectOfType<MapData>();
@@ -102,6 +104,11 @@ public class PlaceTowerOnMap : MonoBehaviour
     {
         var v = GameObject.Instantiate(towers.Single(x => x.id == currentTower).prefab, _previsualisation.transform.position, Quaternion.identity) as GameObject;
         v.transform.localScale = _previsualisation.transform.localScale;
+
+        var e = v.GetComponentInChildren<TowerEntity>();
+        e.team = team;
+        e.Level = FindObjectsOfType<UpgradeCenter>().Single(x => x.team == team).towerToLevel[currentTower];
+
         Destroy(_previsualisation);
         _CreatePrevisualisation();
     }

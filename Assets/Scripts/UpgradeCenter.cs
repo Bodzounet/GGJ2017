@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [RequireComponent(typeof(GoldCost))]
 public class UpgradeCenter : MonoBehaviour
 {
+    private GoldCost _associatedGoldCost;
+
+    public CurrenciesManager associatedCurrenciesManager;
+
     public GameInfos.e_Team team;
 
     public Dictionary<MobEntity.e_MobId, int> mobToLevel = new Dictionary<MobEntity.e_MobId, int>();
@@ -27,15 +32,36 @@ public class UpgradeCenter : MonoBehaviour
 
             towerToLevel[v] = 1;
         }
+
+        _associatedGoldCost = GetComponent<GoldCost>();
     }
 
-    public void UpgradeMobLevel(MobEntity.e_MobId id)
+    public bool UpgradeMobLevel(MobEntity.e_MobId id)
     {
-
+        if (associatedCurrenciesManager.currencies[CurrenciesManager.e_Currencies.Gold].HasEnoughCurrency(_associatedGoldCost.GetMobUpgradeCost(id)))
+        {
+            associatedCurrenciesManager.currencies[CurrenciesManager.e_Currencies.Gold].UseCurrency(_associatedGoldCost.GetMobUpgradeCost(id));
+            mobToLevel[id]++;
+            return true;
+        }
+        return false;
     }
 
-    public void UpgradeTowerLevel(TowerEntity.e_TowerId id)
+    public bool UpgradeTowerLevel(TowerEntity.e_TowerId id)
     {
+        if (associatedCurrenciesManager.currencies[CurrenciesManager.e_Currencies.Gold].HasEnoughCurrency(_associatedGoldCost.GetTowerUpgradeCost(id)))
+        {
+            associatedCurrenciesManager.currencies[CurrenciesManager.e_Currencies.Gold].UseCurrency(_associatedGoldCost.GetTowerUpgradeCost(id));
+            towerToLevel[id]++;
 
+            foreach (var v in FindObjectsOfType<TowerEntity>().Where(x => x.team == team))
+            {
+                Debug.Log("plop");
+                v.Level = towerToLevel[id];
+            }
+
+            return true;
+        }
+        return false;
     }
 }

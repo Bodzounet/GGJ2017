@@ -14,8 +14,13 @@ public class MobEntity : MonoBehaviour {
         None
     }
 
-
     [SerializeField]
+    private float _baseLife;
+    public float BaseLife
+    {
+        get { return _baseLife; }
+    }
+
     private float _life;
     public float Life
     {
@@ -51,11 +56,15 @@ public class MobEntity : MonoBehaviour {
     }
 
     [SerializeField]
-    private float _income;
-    public float Income
+    private int _income;
+    public int Income
     {
         get { return _income; }
     }
+
+    [Range(0, 100)]
+    [SerializeField]
+    protected int _bonusPercentagePerNextLevel;
 
     public e_MobId id;
     public GameInfos.e_Team team;
@@ -74,12 +83,25 @@ public class MobEntity : MonoBehaviour {
             CancelInvoke("Ivk_SlowDebuff");
             Invoke("Ivk_SlowDebuff", time);
         }
+    }
 
+    private int _level = 0;
+    public int Level
+    {
+        get { return _level; }
+        set
+        {
+            _level = value;
+
+            Life = BaseLife * (1 + _bonusPercentagePerNextLevel * (_level - 1) / 100.0f);
+            Speed = BaseSpeed * (1 + _bonusPercentagePerNextLevel * (_level - 1) / 100.0f);
+        }
     }
 
     void Start()
     {
-        Speed = BaseSpeed;
+        if (Level == 0)
+            Level = 1;
     }
 
     void Ivk_SlowDebuff()

@@ -56,17 +56,12 @@ public abstract class TowerEntity : MonoBehaviour
     public virtual int Level
     {
         get { return _level; }
-        protected set
+        set
         {
             _level = value;
             AttackSpeed = BaseAttackSpeed * (1 + _bonusPercentagePerNextLevel * (_level - 1) / 100.0f); 
             Dommages = BaseDommages * (1 + _bonusPercentagePerNextLevel * (_level - 1) / 100.0f);
         }
-    }
-
-    public void UpdateLevel()
-    {
-        Level++;
     }
 
     protected virtual void Start()
