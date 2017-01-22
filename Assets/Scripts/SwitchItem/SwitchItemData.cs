@@ -63,4 +63,14 @@ public class SwitchItemData : MonoBehaviour
         if (OnSwitchItem != null)
             OnSwitchItem(_holders[1].GetComponent<InfoTowerUI>().towerId, _holders[1].GetComponent<InfosMobUI>().mobId);
     }
+
+    public MobEntity.e_MobId  GetCurrentMobHolder()
+    {
+        return _holders[1].GetComponent<InfosMobUI>().mobId;
+    }
+
+    public TowerEntity.e_TowerId GetCurrentTowerHolder()
+    {
+        return _holders[1].GetComponent<InfoTowerUI>().towerId;
+    }
 }

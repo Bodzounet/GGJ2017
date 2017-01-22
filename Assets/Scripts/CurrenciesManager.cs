@@ -32,6 +32,7 @@ public class CurrenciesManager : MonoBehaviour
     public int initialIncome;
     public int life;
     public float incomeTime;
+
     private int timeCount;
 
     void Awake()
@@ -97,11 +98,20 @@ public class CurrenciesManager : MonoBehaviour
     {
         while (_incomeCheck)
         {
-            currencies[e_Currencies.Gold].AddCurrency(currencies[e_Currencies.Income].Amount);
-            timeCount--;
-            timeIncomeText.text = timeCount.ToString();
-            yield return new WaitForSeconds(time);
-            timeCount = Mathf.FloorToInt(time);
+            int i = 0;
+            while (i < time)
+            {
+
+                timeCount = timeCount - 1;
+                timeIncomeText.text = timeCount.ToString();
+                yield return new WaitForSeconds(1f);
+                if (timeCount == 0)
+                {
+                    timeCount = Mathf.FloorToInt(incomeTime);
+                    currencies[e_Currencies.Gold].AddCurrency(currencies[e_Currencies.Income].Amount);
+                }
+                i++;
+            }
         }
     }
     public class CurrencyHelper

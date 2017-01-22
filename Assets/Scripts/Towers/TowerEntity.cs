@@ -50,7 +50,7 @@ public abstract class TowerEntity : MonoBehaviour
 
     [Range(0, 100)]
     [SerializeField]
-    protected int _bonusPercentagePerNextLevel;
+    public int _bonusPercentagePerNextLevel;
 
     private int _level = 0;
     public virtual int Level

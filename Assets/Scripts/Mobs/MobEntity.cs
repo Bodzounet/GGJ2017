@@ -64,7 +64,7 @@ public class MobEntity : MonoBehaviour {
 
     [Range(0, 100)]
     [SerializeField]
-    protected int _bonusPercentagePerNextLevel;
+    public int _bonusPercentagePerNextLevel;
 
     public e_MobId id;
     public GameInfos.e_Team team;
