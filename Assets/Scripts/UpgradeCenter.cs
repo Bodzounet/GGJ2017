@@ -35,8 +35,6 @@ public class UpgradeCenter : MonoBehaviour
                 continue;
 
             mobToLevel[v] = 1;
-            if (OnLevelUpMob != null)
-                OnLevelUpMob(v);
         }
 
         foreach (var v in System.Enum.GetValues(typeof(TowerEntity.e_TowerId)) as TowerEntity.e_TowerId[])
@@ -45,25 +43,9 @@ public class UpgradeCenter : MonoBehaviour
                 continue;
 
             towerToLevel[v] = 1;
-           
         }
 
         _associatedGoldCost = GetComponent<GoldCost>();
-    }
-
-    void Start()
-    {
-        foreach (var obj in towerToLevel)
-        {
-            if (OnLevelUpTower != null)
-                OnLevelUpTower(obj.Key); 
-        }
-
-        foreach (var obj in mobToLevel)
-        {
-            if (OnLevelUpMob != null)
-                OnLevelUpMob(obj.Key);
-        }
     }
 
     void Update()
