@@ -45,7 +45,7 @@ public class PlaceTowerOnMap : MonoBehaviour
 
     void Start()
     {
-       
+
     }
 
     private bool _IsButtonAPressed = false;
@@ -85,8 +85,7 @@ public class PlaceTowerOnMap : MonoBehaviour
         }
         else
         {
-            if (_previsualisation != null)
-                Destroy(_previsualisation);
+            Destroy(_previsualisation);
             _CreatePrevisualisation();
         }
     }
@@ -170,14 +169,13 @@ public class PlaceTowerOnMap : MonoBehaviour
         {
             _timeSmoothSlide = _startTimeSmoothSlide;
         }
-        
-
-        _previsualisation.transform.position = new Vector3(_currentCoord.x * _xSize + margins[2].position.x, 0, _currentCoord.y * _ySize + margins[2].position.z);
 
         if (hasMove)
         {
             _ComputeOverlappingTower();
         }
+        _previsualisation.transform.position = new Vector3(_currentCoord.x * _xSize + margins[2].position.x, 0, _currentCoord.y * _ySize + margins[2].position.z);
+      
     }
 
     void SlideSmooth()
@@ -202,6 +200,7 @@ public class PlaceTowerOnMap : MonoBehaviour
     private void _UpdateOverlappingTower()
     {
         var v = Physics.OverlapSphere(_previsualisation.transform.position, 0.01f, 1 << LayerMask.NameToLayer("Tower"));
+        Debug.Log(v.Length);
         if (v.Length == 0)
         {
             _overlappingTower = null;

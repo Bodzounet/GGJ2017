@@ -21,6 +21,8 @@ public class MobEntity : MonoBehaviour {
         get { return _baseLife; }
     }
 
+
+    private bool dead = false;
     private float _life;
     public float Life
     {
@@ -30,9 +32,13 @@ public class MobEntity : MonoBehaviour {
             _life = value;
             if (_life <= 0)
             {
-                this.GetComponent<OnMobDies>().OnDeath();
-                Destroy(GetComponent<RegularAI>());
-                Destroy(GetComponent<NavMeshAgent>());
+                if (dead == false)
+                {
+                    this.GetComponent<OnMobDies>().OnDeath();
+                    Destroy(GetComponent<RegularAI>());
+                    Destroy(GetComponent<NavMeshAgent>());
+                    dead = true;
+                }
             }
         }
     }
