@@ -19,6 +19,7 @@ public class MobSpawner : MonoBehaviour
     {
          if (team == GameInfos.e_Team.TEAM1)
         {
+            Debug.Log("team1");
             if (cmTeam1.currencies[CurrenciesManager.e_Currencies.Gold].HasEnoughCurrency(gcTeam1.GetMobCost(id)))
             {
                 cmTeam1.currencies[CurrenciesManager.e_Currencies.Gold].UseCurrency((gcTeam1.GetMobCost(id)));
@@ -29,8 +30,9 @@ public class MobSpawner : MonoBehaviour
                 cmTeam1.currencies[CurrenciesManager.e_Currencies.Income].AddCurrency(e.Income);
             }
         }
-        else
+        else if (team == GameInfos.e_Team.TEAM2)
         {
+            Debug.Log("team2");
             if (cmTeam2.currencies[CurrenciesManager.e_Currencies.Gold].HasEnoughCurrency(gcTeam2.GetMobCost(id)))
             {
                 cmTeam2.currencies[CurrenciesManager.e_Currencies.Gold].UseCurrency((gcTeam2.GetMobCost(id)));
@@ -40,15 +42,6 @@ public class MobSpawner : MonoBehaviour
                 e.Level = ucTeam2.mobToLevel[id];
                 cmTeam2.currencies[CurrenciesManager.e_Currencies.Income].AddCurrency(e.Income);
             }
-        }
-    }
-
-    public Transform pos;
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            CreateMob(MobEntity.e_MobId.TANKER, pos.position, GameInfos.e_Team.TEAM1);
         }
     }
 

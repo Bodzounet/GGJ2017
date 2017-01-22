@@ -76,11 +76,11 @@ public class PlaceArrowOnMap : MonoBehaviour
             // valeurs en dur pour tester, à modifier
             if (team == GameInfos.e_Team.TEAM1)
             {
-                mobSpawner.CreateMob(_mobIDtoSpawn, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM2);
+                mobSpawner.CreateMob(_mobIDtoSpawn, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
             }
             else
             {
-                mobSpawner.CreateMob(_mobIDtoSpawn, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
+                mobSpawner.CreateMob(_mobIDtoSpawn, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM2);
             }
             // valeurs en dur pour tester, à modifier
         }
