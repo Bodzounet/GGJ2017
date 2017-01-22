@@ -3,7 +3,6 @@ using System.Collections;
 
 public class DestroyAI : MonoBehaviour
 {
-
     public CurrenciesManager cm;
     public int playerID;
 

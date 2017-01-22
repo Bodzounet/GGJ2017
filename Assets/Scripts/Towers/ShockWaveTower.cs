@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using System.Linq;
 
 public class ShockWaveTower : TowerEntity
 {
@@ -15,7 +15,7 @@ public class ShockWaveTower : TowerEntity
 
     void Awake()
     {
-        _anim = transform.root.GetComponent<Animator>();
+        _anim = transform.root.GetComponentInChildren<Animator>();
     }
 
     void OnTriggerEnter(Collider col)
@@ -45,6 +45,18 @@ public class ShockWaveTower : TowerEntity
                 CancelInvoke("Ivk_Attack");
                 _isAttacking = false;
             }
+        }
+    }
+
+    void Update()
+    {
+        _targetsInRange = _targetsInRange.Where(x => x != null).ToList();
+        if (_targetsInRange.Count == 0)
+        {
+            _anim.SetBool("IsAttacking", false);
+            ps.Stop();
+            CancelInvoke("Ivk_Attack");
+            _isAttacking = false;
         }
     }
 

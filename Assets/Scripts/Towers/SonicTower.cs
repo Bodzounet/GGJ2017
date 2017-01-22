@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using System.Linq;
 
 public class SonicTower : TowerEntity
 {
@@ -38,6 +38,18 @@ public class SonicTower : TowerEntity
                 foreach (var v in pss)
                     v.Stop();
             }
+        }
+    }
+
+    void Update()
+    {
+        _targetsInRange = _targetsInRange.Where(x => x != null).ToList();
+        if (_targetsInRange.Count == 0)
+        {
+            CancelInvoke("Ivk_Attack");
+            _isAttacking = false;
+            foreach (var v in pss)
+                v.Stop();
         }
     }
 

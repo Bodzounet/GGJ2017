@@ -22,6 +22,12 @@ public class XRayTowerProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
+        if (target == null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
         if (col.gameObject == target.gameObject)
         {
             Destroy(this.gameObject);
