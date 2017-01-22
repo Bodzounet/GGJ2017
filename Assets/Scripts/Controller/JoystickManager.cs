@@ -60,5 +60,7 @@ public class JoystickManager : MonoBehaviour
     {
         GamePad.SetVibration(_playerIndex[playervibID], 1f, 1f);
         yield return new WaitForSeconds(VibTime);
+        GamePad.SetVibration(_playerIndex[playervibID], 0f, 0f);
+
     }
 }
