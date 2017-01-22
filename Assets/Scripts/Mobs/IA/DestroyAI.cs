@@ -5,8 +5,9 @@ public class DestroyAI : MonoBehaviour
 {
     public CurrenciesManager cm;
     public int playerID;
+    public GameInfos.e_Team team;
 
-    bool gameEnded = false;
+    public bool gameEnded = false;
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Mob"))
