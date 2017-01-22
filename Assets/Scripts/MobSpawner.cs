@@ -12,20 +12,34 @@ public class MobSpawner : MonoBehaviour
     public CurrenciesManager cmTeam1;
     public CurrenciesManager cmTeam2;
 
+    public GoldCost gcTeam1;
+    public GoldCost gcTeam2;
+
     public void CreateMob(MobEntity.e_MobId id, Vector3 pos, GameInfos.e_Team team)
     {
-        var v = Instantiate(mobs.Single(x => x.id == id).prefab, pos, Quaternion.identity) as GameObject;
-        var e = v.GetComponent<MobEntity>();
-        e.team = team;
-        if (team == GameInfos.e_Team.TEAM1)
+         if (team == GameInfos.e_Team.TEAM1)
         {
-            cmTeam1.currencies[CurrenciesManager.e_Currencies.Gold].AddCurrency(e.Income);
-            e.Level = ucTeam1.mobToLevel[id];
+            if (cmTeam1.currencies[CurrenciesManager.e_Currencies.Gold].HasEnoughCurrency(gcTeam1.GetMobCost(id)))
+            {
+                cmTeam1.currencies[CurrenciesManager.e_Currencies.Gold].UseCurrency((gcTeam1.GetMobCost(id)));
+                var v = Instantiate(mobs.Single(x => x.id == id).prefab, pos, Quaternion.identity) as GameObject;
+                var e = v.GetComponent<MobEntity>();
+                e.team = team;
+                e.Level = ucTeam1.mobToLevel[id];
+                cmTeam1.currencies[CurrenciesManager.e_Currencies.Income].AddCurrency(e.Income);
+            }
         }
         else
         {
-            cmTeam2.currencies[CurrenciesManager.e_Currencies.Gold].AddCurrency(e.Income);
-            e.Level = ucTeam2.mobToLevel[id];
+            if (cmTeam2.currencies[CurrenciesManager.e_Currencies.Gold].HasEnoughCurrency(gcTeam2.GetMobCost(id)))
+            {
+                cmTeam2.currencies[CurrenciesManager.e_Currencies.Gold].UseCurrency((gcTeam2.GetMobCost(id)));
+                var v = Instantiate(mobs.Single(x => x.id == id).prefab, pos, Quaternion.identity) as GameObject;
+                var e = v.GetComponent<MobEntity>();
+                e.team = team;
+                e.Level = ucTeam2.mobToLevel[id];
+                cmTeam2.currencies[CurrenciesManager.e_Currencies.Income].AddCurrency(e.Income);
+            }
         }
     }
 

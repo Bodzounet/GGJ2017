@@ -22,6 +22,8 @@ public class PlaceArrowOnMap : MonoBehaviour
     public GoldCost gc;
     public int playerdID;
 
+    private MobEntity.e_MobId _mobIDtoSpawn;
+
     void Start()
     {
         _XSize = FindObjectOfType<MapData>().XSize;
@@ -31,6 +33,13 @@ public class PlaceArrowOnMap : MonoBehaviour
         _arrow = GameObject.Instantiate(arrowModel);
         _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z);
         _arrow.transform.localScale = new Vector3(_xSize, _xSize, _xSize);
+        sid.OnSwitchItem += UpdateMobIDSpawn;
+    }
+
+    void UpdateMobIDSpawn(TowerEntity.e_TowerId towerId, MobEntity.e_MobId mobID)
+    {
+        _mobIDtoSpawn = mobID;
+
     }
 
     private bool isButtonBPressed = false;
@@ -67,11 +76,11 @@ public class PlaceArrowOnMap : MonoBehaviour
             // valeurs en dur pour tester, à modifier
             if (team == GameInfos.e_Team.TEAM1)
             {
-                mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM2);
+                mobSpawner.CreateMob(_mobIDtoSpawn, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM2);
             }
             else
             {
-                mobSpawner.CreateMob(MobEntity.e_MobId.SOLDIER, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
+                mobSpawner.CreateMob(_mobIDtoSpawn, new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z), GameInfos.e_Team.TEAM1);
             }
             // valeurs en dur pour tester, à modifier
         }
