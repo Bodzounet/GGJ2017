@@ -33,18 +33,20 @@ public class PlaceTowerOnMap : MonoBehaviour
 
     public GameInfos.e_Team team;
 
-    void Start()
+    void Awake()
     {
+        sid.OnSwitchItem += UpdatePrevisualisation;
         var v = FindObjectOfType<MapData>();
         XSize = v.XSize;
         YSize = v.YSize;
-
-        // to make it work, _xsize has to be equal to _ySize
         _xSize = (margins[1].position.x - margins[0].position.x) / XSize;
         _ySize = (margins[0].position.z - margins[2].position.z) / YSize;
+        Debug.Log("add");
+    }
 
-        sid.OnSwitchItem += UpdatePrevisualisation;
-        SetTowerModel(TowerEntity.e_TowerId.XRAY);
+    void Start()
+    {
+       
     }
 
     private bool _IsButtonAPressed = false;
@@ -84,7 +86,10 @@ public class PlaceTowerOnMap : MonoBehaviour
         }
         else
         {
-            Destroy(_previsualisation);
+            if (_previsualisation != null)
+                Destroy(_previsualisation);
+            Debug.Log(id);
+
             _CreatePrevisualisation();
         }
     }
