@@ -25,7 +25,6 @@ public class SwitchItemData : MonoBehaviour
             _holders.Add(transform.GetChild(i) as RectTransform);
             _pos.Add(_holders[i].transform.localPosition);
         }
-        Debug.Log("switch");
         if (OnSwitchItem != null)
             OnSwitchItem(_holders[1].GetComponent<InfoTowerUI>().towerId, _holders[1].GetComponent<InfosMobUI>().mobId);
     }

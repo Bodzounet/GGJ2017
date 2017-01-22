@@ -48,6 +48,6 @@ public class XRayTower : TowerEntity
 
         projScript.target = _targets[0].transform;
         projScript.dmgs = Dommages;
-        
+
     }
 }

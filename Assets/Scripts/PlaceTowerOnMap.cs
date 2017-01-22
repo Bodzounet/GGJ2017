@@ -41,7 +41,6 @@ public class PlaceTowerOnMap : MonoBehaviour
         YSize = v.YSize;
         _xSize = (margins[1].position.x - margins[0].position.x) / XSize;
         _ySize = (margins[0].position.z - margins[2].position.z) / YSize;
-        Debug.Log("add");
     }
 
     void Start()
@@ -88,15 +87,12 @@ public class PlaceTowerOnMap : MonoBehaviour
         {
             if (_previsualisation != null)
                 Destroy(_previsualisation);
-            Debug.Log(id);
-
             _CreatePrevisualisation();
         }
     }
 
     private void _CreatePrevisualisation()
     {
-        //_currentCoord = Vector2.zero;
         _previsualisation = Instantiate(previsualisations.Single(x => x.id == currentTower).prefab) as GameObject;
         _previsualisation.transform.position = new Vector3(_currentCoord.x * _xSize + margins[2].position.x, 0, _currentCoord.y * _ySize + margins[2].position.z);
         _previsualisation.transform.localScale = (new Vector3(_xSize, _xSize, _xSize) / 1.5f);

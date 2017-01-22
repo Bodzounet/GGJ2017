@@ -32,7 +32,6 @@ public class JoystickManager : MonoBehaviour
                 GamePadState testState = GamePad.GetState(testPlayerIndex);
                 if (testState.IsConnected)
                 {
-                    Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
                     _playerIndex[i] = testPlayerIndex;
                     _playerIndexSet[i] = true;
                 }

@@ -37,7 +37,6 @@ public class RegularAI : MonoBehaviour
         {
             if (_unlockPassage == true)
             {
-                Debug.Log(other.gameObject);
                 Destroy(other.gameObject);
                 Destroy(this.gameObject);
             }

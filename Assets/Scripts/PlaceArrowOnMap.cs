@@ -42,7 +42,6 @@ public class PlaceArrowOnMap : MonoBehaviour
 
     void UpdateMobIDSpawn(TowerEntity.e_TowerId towerId, MobEntity.e_MobId mobID)
     {
-        Debug.Log("ZZZ " + mobID.ToString());
         _mobIDtoSpawn = mobID;
     }
 
