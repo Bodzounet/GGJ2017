@@ -26,7 +26,6 @@ public class RegularAI : MonoBehaviour
     {
         _agent.ResetPath();
         _agent.SetDestination(goal.transform.position);
-        Debug.Log(_agent.pathStatus);
         if (_agent.pathStatus == NavMeshPathStatus.PathPartial)
         {
             _unlockPassage = true;

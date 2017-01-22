@@ -46,10 +46,8 @@ public class EndGame : MonoBehaviour
     private IEnumerator BackToMenu()
     {
         float startTime = Time.realtimeSinceStartup;
-        Debug.Log("test");
         while (Time.realtimeSinceStartup < startTime + 3)
         {
-            Debug.Log(Time.realtimeSinceStartup);
             yield return 0;
         }
 
