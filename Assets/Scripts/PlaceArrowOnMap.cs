@@ -24,6 +24,11 @@ public class PlaceArrowOnMap : MonoBehaviour
 
     private MobEntity.e_MobId _mobIDtoSpawn;
 
+    void Awake()
+    {
+        sid.OnSwitchItem += UpdateMobIDSpawn;
+    }
+
     void Start()
     {
         _XSize = FindObjectOfType<MapData>().XSize;
@@ -33,12 +38,11 @@ public class PlaceArrowOnMap : MonoBehaviour
         _arrow = GameObject.Instantiate(arrowModel);
         _arrow.transform.position = new Vector3(_currentCoord.x * _xSize + margins[0].position.x, 0, margins[0].position.z);
         _arrow.transform.localScale = new Vector3(_xSize, _xSize, _xSize);
-        sid.OnSwitchItem += UpdateMobIDSpawn;
     }
 
     void UpdateMobIDSpawn(TowerEntity.e_TowerId towerId, MobEntity.e_MobId mobID)
     {
-        Debug.Log(mobID.ToString());
+        Debug.Log("ZZZ " + mobID.ToString());
         _mobIDtoSpawn = mobID;
     }
 
