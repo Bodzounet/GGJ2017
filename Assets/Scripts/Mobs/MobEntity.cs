@@ -28,7 +28,7 @@ public class MobEntity : MonoBehaviour {
         set
         {
             _life = value;
-            if (_life == 0)
+            if (_life <= 0)
             {
                 this.GetComponent<OnMobDies>().OnDeath();
                 Destroy(GetComponent<RegularAI>());

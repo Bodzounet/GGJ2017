@@ -48,15 +48,28 @@ public class UpgradeCenter : MonoBehaviour
         _associatedGoldCost = GetComponent<GoldCost>();
     }
 
+    private bool pressed = false;
+
     void Update()
     {
-        if (jm.state[playerID].Buttons.X == XInputDotNetPure.ButtonState.Pressed)
+        if (jm.state[playerID].Buttons.X == XInputDotNetPure.ButtonState.Pressed && pressed == false)
         {
             UpgradeTowerLevel(towerHolder.GetCurrentTowerHolder());
+            pressed = true;
         }
-        if (jm.state[playerID].Buttons.Y == XInputDotNetPure.ButtonState.Pressed)
+        if (jm.state[playerID].Buttons.Y == XInputDotNetPure.ButtonState.Pressed && pressed == false)
         {
             UpgradeMobLevel(mobHolder.GetCurrentMobHolder());
+            pressed = true;
+        }
+
+        if (jm.state[playerID].Buttons.Y == XInputDotNetPure.ButtonState.Released)
+        {
+            pressed = false;
+        }
+        if (jm.state[playerID].Buttons.Y == XInputDotNetPure.ButtonState.Released)
+        {
+            pressed = false;
         }
     }
 

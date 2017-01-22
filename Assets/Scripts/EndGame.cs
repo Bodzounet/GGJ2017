@@ -40,16 +40,18 @@ public class EndGame : MonoBehaviour
             VictoryPanelTeam2.SetActive(true);
             DefeatPanelTeam1.SetActive(true);
         }
-
         StartCoroutine("BackToMenu");
     }
 
-    private IEnumerable BackToMenu()
+    private IEnumerator BackToMenu()
     {
         float startTime = Time.realtimeSinceStartup;
-
+        Debug.Log("test");
         while (Time.realtimeSinceStartup < startTime + 3)
+        {
+            Debug.Log(Time.realtimeSinceStartup);
             yield return 0;
+        }
 
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
